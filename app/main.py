@@ -1,5 +1,5 @@
-import argparse
-from argparse import Namespace
+# import argparse
+# from argparse import Namespace
 import os
 import sys
 
@@ -10,8 +10,9 @@ from domain.entities.player import Player, PlayerDetails
 from domain.entities.game_config import GameConfig
 
 
-def parse_args() -> Namespace:
-    parser = argparse.ArgumentParser(description="Backshot Roulette")
+# TODO: あとで実装する。
+# def parse_args() -> Namespace:
+#     parser = argparse.ArgumentParser(description="Backshot Roulette")
 
 def main() -> None:
     game_config = GameConfig(
