@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from .shotgun import Shotgun
 from .player import Player
 
 @dataclass
-class GameConfig(dataclass):
+class GameConfig:
     player: Player
     dealer: str
-    shotgun: str
+    shotgun: Shotgun
