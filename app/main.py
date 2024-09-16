@@ -22,8 +22,10 @@ def main() -> None:
         dealer="dealer",
         shotgun=Shotgun(details=ShotgunDetails(cartridges=Cartridges(nums=2))) # TODO: この数ってここで決めていいの？
     )
+    game = Game(config=game_config)
 
-    print(game_config.player.name)
+    print("Player Name", game_config.player.name)
+    print("Game Round", game.round)
 
 
 if __name__ == "__main__":
