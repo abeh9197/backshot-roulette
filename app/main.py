@@ -48,8 +48,10 @@ def main() -> None:
         game = Game(config=game_config)
         display.cartridges(game=game)  # TODO: まとめたい
         display.health(game=game)
-        ret = input_manager.get_player_action()
-        print(ret)
+        cartridge = player.action(
+            shotgun=shotgun, selected_action=input_manager.get_player_action()
+        )
+        print(cartridge)
         break
 
 

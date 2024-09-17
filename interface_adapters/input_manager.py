@@ -1,4 +1,5 @@
-import keyboard
+import readchar
+from domain.entities.player.action import PlayerAction
 
 
 class InputManager:
@@ -27,19 +28,14 @@ class InputManager:
                 else:
                     print(f"  {option}")
 
-            key = keyboard.read_event()
+            key = readchar.readkey()
 
-            if key.event_type == keyboard.KEY_DOWN:
-                if key.name in ["down", "s"]:
-                    selected_index = min((selected_index + 1, len(options) - 1))
-                elif key.name in ["up", "w"]:
-                    selected_index = max(selected_index - 1, 0)
-                # 確定
-                elif key.name == "enter":
-                    if selected_index == 0:
-                        return "self"
-                    elif selected_index == 1:
-                        return "dealer"
+            if key in ["s", "\x1b[B"]:
+                selected_index = min((selected_index + 1, len(options) - 1))
+            elif key in ["w", "\x1b[A"]:
+                selected_index = max(selected_index - 1, 0)
+            elif key in ["\r", "\n"]:
+                return PlayerAction("self" if selected_index == 0 else "dealer")
 
             # 選択肢の表示をクリア（コンソール上でリフレッシュ）
             print("\033c", end="")

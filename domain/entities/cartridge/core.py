@@ -17,6 +17,9 @@ class Cartridge:
     def __init__(self, cartridge_type: CartridgeType = CartridgeType.BLANK) -> None:
         self.__type = cartridge_type
 
+    def __str__(self):
+        return "実包" if self.is_live else "空砲"
+
     @property
     def is_live(self) -> bool:
         return self.__type == CartridgeType.LIVE
@@ -32,6 +35,12 @@ class Cartridges:
 
     def __len__(self) -> int:
         return len(self.__cartridges)
+
+    def __iter__(self):
+        return iter(self.__cartridges)
+
+    def __getitem__(self, index):
+        return self.__cartridges[index]
 
     def __load_cartridges(self, nums: int) -> list[Cartridge]:
         cartridges = [

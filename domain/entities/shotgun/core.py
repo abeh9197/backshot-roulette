@@ -1,4 +1,5 @@
 from .details import ShotgunDetails
+from domain.entities import Cartridge, Cartridges
 
 
 class Shotgun:
@@ -6,8 +7,8 @@ class Shotgun:
         self.__details = details
 
     @property
-    def cartridges(self):
-        """
-        Return: list[Cartridges]
-        """
+    def cartridges(self) -> Cartridges:
         return self.__details.cartridges
+
+    def shoot(self) -> Cartridge:
+        return self.cartridges[0]
