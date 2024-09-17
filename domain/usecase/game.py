@@ -1,4 +1,4 @@
-from .entities.game_config import GameConfig
+from ..entities.game_config import GameConfig
 
 
 class Game:
@@ -11,10 +11,10 @@ class Game:
     @property
     def dealer(self):  # -> Dealer:
         return self.__dealer
-    
+
     @property
     def player(self):
-    return self.__player
+        return self.__player
 
     @property
     def shotgun(self):

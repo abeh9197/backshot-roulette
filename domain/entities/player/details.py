@@ -1,7 +1,7 @@
 class PlayerDetails:
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, health: int = 3) -> None:
         self.__name = name
-        self.__health = 3
+        self.__health = health
 
     @property
     def name(self) -> str:

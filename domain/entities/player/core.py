@@ -8,3 +8,7 @@ class Player:
     @property
     def name(self) -> str:
         return self.__details.name
+
+    @property
+    def health(self) -> int:
+        return self.__details.health
