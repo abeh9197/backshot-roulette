@@ -1,16 +1,17 @@
 from logging import getLogger, StreamHandler, DEBUG, Formatter
 
+
 # カスタムフォーマッタークラス
 class CustomFormatter(Formatter):
     # 色の設定（ANSIエスケープシーケンス）
     COLORS = {
-        'DEBUG': '\033[94m',   # 青
-        'INFO': '\033[92m',    # 緑
-        'WARNING': '\033[93m', # 黄色
-        'ERROR': '\033[91m',   # 赤
-        'CRITICAL': '\033[95m' # マゼンタ
+        "DEBUG": "\033[94m",  # 青
+        "INFO": "\033[92m",  # 緑
+        "WARNING": "\033[93m",  # 黄色
+        "ERROR": "\033[91m",  # 赤
+        "CRITICAL": "\033[95m",  # マゼンタ
     }
-    RESET = '\033[0m'
+    RESET = "\033[0m"
 
     def format(self, record):
         # ログレベルに応じたフォーマット設定
@@ -19,6 +20,7 @@ class CustomFormatter(Formatter):
             log_fmt = f"{self.COLORS['DEBUG']}[DEBUG] %(message)s{self.RESET}"
         formatter = Formatter(log_fmt)
         return formatter.format(record)
+
 
 # ロガーの設定
 logger = getLogger(__name__)

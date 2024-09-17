@@ -17,7 +17,9 @@ from domain.entities import (
     ShotgunDetails,
 )
 from domain.usecase.game import Game, GameConfig
+from interface_adapters import InputManager
 from utils.logger import logger
+from utils import DisplayManager
 
 
 # TODO: あとで実装する。
@@ -26,19 +28,30 @@ from utils.logger import logger
 
 
 def main() -> None:
-    game_config = GameConfig(
-        player=Player(details=PlayerDetails(name="peko")),
-        dealer=Dealer(details=DealerDetails()),
-        shotgun=Shotgun(
-            details=ShotgunDetails(cartridges=Cartridges(nums=2))
-        ),  # TODO: この数ってここで決めていいの？
-    )
-    game = Game(config=game_config)
+    logger.info("Game Start")
+    display = DisplayManager()
+    input_manager = InputManager()
 
     while True:
-        logger.debug("Game Round: %s", game.round)
-        logger.info("Player: %s, Health: %s", game.player.name, game.player.health)
+        player = Player(details=PlayerDetails(name="peko"))  # TODO: まとめたい
+        dealer = Dealer(details=DealerDetails())
+        shotgun = Shotgun(
+            details=ShotgunDetails(
+                cartridges=Cartridges(nums=2)
+            )  # TODO: この数ってここで決めていいの？
+        )
+        game_config = GameConfig(
+            player=player,
+            dealer=dealer,
+            shotgun=shotgun,
+        )
+        game = Game(config=game_config)
+        display.cartridges(game=game)  # TODO: まとめたい
+        display.health(game=game)
+        ret = input_manager.get_player_action()
+        print(ret)
         break
+
 
 if __name__ == "__main__":
     main()

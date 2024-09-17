@@ -1,5 +1,6 @@
 from enum import Enum
 import random
+from utils.logger import logger
 
 
 class CartridgeType(Enum):
@@ -7,6 +8,7 @@ class CartridgeType(Enum):
     空砲: blank
     実包: live
     """
+
     BLANK = 0
     LIVE = 1
 
@@ -32,7 +34,12 @@ class Cartridges:
         return len(self.__cartridges)
 
     def __load_cartridges(self, nums: int) -> list[Cartridge]:
-        return [Cartridge(random.choice(list(CartridgeType))) for _ in range(nums)]
+        cartridges = [
+            Cartridge(random.choice(list(CartridgeType))) for _ in range(nums)
+        ]
+        cartridge_types = ["実包" if c.is_live else "空砲" for c in cartridges]
+        logger.info(f"{nums} cartridges loaded: {', '.join(cartridge_types)}")
+        return cartridges
 
-    def get_all(self) -> list:
+    def get_all(self) -> list[Cartridge]:
         return self.__cartridges
