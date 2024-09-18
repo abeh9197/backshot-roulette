@@ -17,6 +17,10 @@ class Dealer:
         """ディーラーの賢さを取得"""
         return self.__details.intelligence
 
+    @property
+    def is_dead(self) -> bool:
+        return self.__health == 0
+
     def decide_action(self) -> DealerAction:
         """
         賢さに基づいてディーラーの行動を決定する。

@@ -31,28 +31,36 @@ def main() -> None:
     logger.info("Game Start")
     display = DisplayManager()
     input_manager = InputManager()
-    player = Player(details=PlayerDetails(name="peko"))  # TODO: まとめたい
-    dealer = Dealer(details=DealerDetails())
-    shotgun = Shotgun(
-        details=ShotgunDetails(
-            cartridges=Cartridges(nums=2)
-        )  # TODO: この数ってここで決めていいの？
-    )
-    game_config = GameConfig(
-        player=player,
-        dealer=dealer,
-        shotgun=shotgun,
-    )
 
-    while True:
-        game = Game(config=game_config)
+    # プレイヤーとディーラー（またはプレイヤー2）を設定
+    player = Player(details=PlayerDetails(name="peko"))
+    dealer = Dealer(details=DealerDetails())
+
+    # ショットガンの設定
+    shotgun = Shotgun(details=ShotgunDetails(cartridges=Cartridges(capacity=2)))
+
+    # ゲーム設定の構築
+    game_config = GameConfig(player=player, dealer=dealer, shotgun=shotgun)
+    game = Game(config=game_config)
+
+    while not game.is_over:
+        print(game.turn.current_turn)
         display.cartridges(game=game)  # TODO: まとめたい
         display.health(game=game)
-        action = input_manager.get_player_action()
+        if game.is_player_turn:
+            action = input_manager.get_player_action()
+        else:
+            action = None
+
         game.play_turn(player_action=action)
         logger.debug("player %s", game.player.health)
         logger.debug("dealer %s", game.dealer.health)
         logger.debug(f"shotgun {game.shotgun.cartridges}")
+
+        game.check_and_reload()
+        game.switch_turn()
+
+    print("Game Over")
 
 
 if __name__ == "__main__":

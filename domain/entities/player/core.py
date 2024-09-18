@@ -16,5 +16,9 @@ class Player:
     def health(self) -> int:
         return self.__health
 
+    @property
+    def is_dead(self) -> bool:
+        return self.__health == 0
+
     def take_damage(self) -> None:
         self.__health -= 1

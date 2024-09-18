@@ -1,13 +1,15 @@
-from ..entities import GameConfig
+from ..entities import Dealer, DealerAction, GameConfig
 from ..entities import PlayerAction
+from ..entities import Turn
 
 
 class Game:
     def __init__(self, config: GameConfig) -> None:
-        self.__dealer = config.dealer
+        self.__dealer: Dealer = config.dealer
         self.__player = config.player
         self.__shotgun = config.shotgun
         self.__round = 1
+        self.turn = Turn(player=self.__player, opponent=self.__dealer)
 
     @property
     def dealer(self):
@@ -25,8 +27,36 @@ class Game:
     def round(self) -> int:
         return self.__round
 
-    def play_turn(self, player_action: PlayerAction) -> None:
-        if player_action.is_opponent:
+    @property
+    def is_over(self) -> bool:
+        return self.player.is_dead or self.dealer.is_dead
+
+    @property
+    def is_player_turn(self) -> bool:
+        return self.turn.is_players
+
+    def check_and_reload(self) -> None:
+        if not self.__shotgun.has_ammo:
+            print("No more cartridges. Reloading the shotgun...")
+            self.__shotgun.reload()
+
+    def play_turn(self, player_action: PlayerAction = None) -> None:
+        if self.turn.is_dealers_turn:
+            self.__generate_dealer_action()
+        else:
+            self.__apply_action(action=player_action)
+
+    def switch_turn(self) -> None:
+        self.turn.switch_turn()
+
+    def __apply_action(self, action: PlayerAction) -> None:
+        if action.is_opponent:
+            self.__apply_shot(target=self.__dealer)
+        else:
+            self.__apply_shot(target=self.__player)
+
+    def __apply_dealers_action(self, action: DealerAction) -> None:
+        if action.is_dealer:
             self.__apply_shot(target=self.__dealer)
         else:
             self.__apply_shot(target=self.__player)
@@ -44,3 +74,6 @@ class Game:
             # 実包の場合は対象にダメージを与える
             target.take_damage()
             print(f"{target.__class__.__name__} にダメージが与えられました！")
+
+    def __generate_dealer_action(self) -> DealerAction:
+        self.__apply_dealers_action(self.__dealer.decide_action())

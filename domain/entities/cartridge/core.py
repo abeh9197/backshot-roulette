@@ -30,8 +30,9 @@ class Cartridge:
 
 
 class Cartridges:
-    def __init__(self, nums: int) -> None:
-        self.__cartridges = self.__load_cartridges(nums=nums)
+    def __init__(self, capacity: int) -> None:
+        self.__cartridges = self.__load_cartridges(capacity=capacity)
+        self.__capacity = capacity
 
     def __len__(self) -> int:
         return len(self.__cartridges)
@@ -45,13 +46,21 @@ class Cartridges:
     def __str__(self):
         return "".join("🟥" if c.is_live else "🟩" for c in self.__cartridges)
 
-    def __load_cartridges(self, nums: int) -> list[Cartridge]:
+    def __load_cartridges(self, capacity: int) -> list[Cartridge]:
         cartridges = [
-            Cartridge(random.choice(list(CartridgeType))) for _ in range(nums)
+            Cartridge(random.choice(list(CartridgeType))) for _ in range(capacity)
         ]
         cartridge_types = ["実包" if c.is_live else "空砲" for c in cartridges]
-        logger.info(f"{nums} cartridges loaded: {', '.join(cartridge_types)}")
+        logger.info(f"{capacity} cartridges loaded: {', '.join(cartridge_types)}")
         return cartridges
+
+    @property
+    def is_empty(self) -> bool:
+        return len(self.__cartridges) == 0
+
+    @property
+    def capacity(self) -> int:
+        return self.__capacity
 
     def get_all(self) -> list[Cartridge]:
         return self.__cartridges
