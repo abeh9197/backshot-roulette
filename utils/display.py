@@ -18,4 +18,4 @@ class DisplayManager:
         """
         symbol = "⚡"  # TODO: 外から自由に定義できるようにしたい。
         print(f"Player: Health: [{symbol * game.player.health}]")
-        print(f"Player: Health: [{symbol * game.dealer.health}]")
+        print(f"Dealer: Health: [{symbol * game.dealer.health}]")

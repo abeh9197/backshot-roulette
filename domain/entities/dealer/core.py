@@ -1,20 +1,23 @@
+import random
+from .action import DealerAction, DealerActionType
 from .details import DealerDetails
 
 
 class Dealer:
     def __init__(self, details: DealerDetails) -> None:
         self.__details = details
+        self.__health = self.__details.health
 
     @property
     def health(self) -> int:
-        return self.__details.health
+        return self.__health
 
     @property
     def intelligence(self) -> int:
         """ディーラーの賢さを取得"""
         return self.__details.intelligence
 
-    def decide_action(self):
+    def decide_action(self) -> DealerAction:
         """
         賢さに基づいてディーラーの行動を決定する。
         - 賢さが低い: ランダムな行動
@@ -23,7 +26,7 @@ class Dealer:
         """
         if self.intelligence == 1:
             # 賢さが低い -> ランダムな行動（実装例）
-            return "ランダム行動"
+            return DealerAction(target=random.choice(DealerActionType.choices()))
         elif self.intelligence == 2:
             # 賢さが中 -> 状況を考慮した行動（実装例）
             return "状況に応じた行動"
@@ -32,3 +35,6 @@ class Dealer:
             return "最適な行動"
         else:
             return "デフォルト行動"
+
+    def take_damage(self) -> None:
+        self.__health -= 1

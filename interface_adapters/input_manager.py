@@ -1,5 +1,5 @@
 import readchar
-from domain.entities.player.action import PlayerAction
+from domain.entities.player.action import PlayerAction, PlayerActionType
 
 
 class InputManager:
@@ -9,18 +9,17 @@ class InputManager:
     def get_player_name(self) -> str:
         return input("Input players name: ") or "Anonymous"
 
-    def get_player_action(self) -> str:
+    def get_player_action(self) -> PlayerAction:
         """
         プレイヤーに矢印キーまたはWASDで自分に撃つか、ディーラーに撃つかを選ばせる。
         :return: 'self' (自分に撃つ) または 'dealer' (ディーラーに撃つ)
         """
-        options = ["自分に撃つ", "ディーラーに撃つ"]
         selected_index = 0
 
         print(
             "\033[31m矢印キー(↑↓)またはWASDキー(W/S)で選択し、Enterで決定してください。\033[0m"
         )
-
+        options = PlayerActionType.choices()
         while True:
             for i, option in enumerate(options):
                 if i == selected_index:

@@ -6,6 +6,7 @@ from domain.entities.shotgun import Shotgun
 class Player:
     def __init__(self, details: PlayerDetails) -> None:
         self.__details = details
+        self.__health = self.__details.health
 
     @property
     def name(self) -> str:
@@ -13,16 +14,7 @@ class Player:
 
     @property
     def health(self) -> int:
-        return self.__details.health
+        return self.__health
 
-    def action(self, shotgun: Shotgun, selected_action: PlayerAction) -> None:
-        if selected_action.is_dealer:
-            return self.__shoot_at_dealer(shotgun=shotgun)
-        else:
-            return self.__shoot_at_self(shotgun=shotgun)
-
-    def __shoot_at_dealer(self, shotgun: Shotgun):
-        return shotgun.shoot()
-
-    def __shoot_at_self(self, shotgun: Shotgun):
-        return shotgun.shoot()
+    def take_damage(self) -> None:
+        self.__health -= 1

@@ -42,6 +42,9 @@ class Cartridges:
     def __getitem__(self, index):
         return self.__cartridges[index]
 
+    def __str__(self):
+        return "".join("🟥" if c.is_live else "🟩" for c in self.__cartridges)
+
     def __load_cartridges(self, nums: int) -> list[Cartridge]:
         cartridges = [
             Cartridge(random.choice(list(CartridgeType))) for _ in range(nums)
@@ -52,3 +55,9 @@ class Cartridges:
 
     def get_all(self) -> list[Cartridge]:
         return self.__cartridges
+
+    def discharge(self, index: int = -1) -> Cartridge:
+        if not self.__cartridges:
+            raise IndexError("カートリッジがありません。")
+
+        return self.__cartridges.pop(index)

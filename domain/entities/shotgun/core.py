@@ -11,4 +11,4 @@ class Shotgun:
         return self.__details.cartridges
 
     def shoot(self) -> Cartridge:
-        return self.cartridges[0]
+        return self.cartridges.discharge()
