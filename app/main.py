@@ -33,7 +33,7 @@ def main() -> None:
     input_manager = InputManager()
 
     # プレイヤーとディーラー（またはプレイヤー2）を設定
-    player = Player(details=PlayerDetails(name="peko"))
+    player = Player(details=PlayerDetails(name="foo"))
     dealer = Dealer(details=DealerDetails())
 
     # ショットガンの設定

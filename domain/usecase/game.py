@@ -9,6 +9,7 @@ class Game:
         self.__player = config.player
         self.__shotgun = config.shotgun
         self.__round = 1
+        self.__is_switch_turn = False
         self.turn = Turn(player=self.__player, opponent=self.__dealer)
 
     @property
