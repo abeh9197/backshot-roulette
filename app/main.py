@@ -1,5 +1,5 @@
-# import argparse
-# from argparse import Namespace
+import argparse
+from argparse import Namespace
 import os
 import sys
 
@@ -25,6 +25,8 @@ from utils import DisplayManager
 # TODO: あとで実装する。
 # def parse_args() -> Namespace:
 #     parser = argparse.ArgumentParser(description="Backshot Roulette")
+#     parser.add_argument("--name", required=False)
+#     return parser.parse_args()    
 
 
 def main() -> None:
@@ -32,8 +34,10 @@ def main() -> None:
     display = DisplayManager()
     input_manager = InputManager()
 
+    # args = parse_args()
+
     # プレイヤーとディーラー（またはプレイヤー2）を設定
-    player = Player(details=PlayerDetails(name="foo"))
+    player = Player(details=PlayerDetails(name="args.player_name"))
     dealer = Dealer(details=DealerDetails())
 
     # ショットガンの設定
