@@ -26,3 +26,20 @@ class DisplayManager:
         symbol = "⚡"  # TODO: 外から自由に定義できるようにしたい。
         print(f"Player: Health: [{symbol * game.player.health}]")
         print(f"Dealer: Health: [{symbol * game.dealer.health}]")
+
+    def display_turn_result(self, result: dict) -> None:
+        """
+        ゲームから返されたターン結果を受け取って表示する。
+        """
+        if result["shot_fired"]:
+            if result["is_blank"]:
+                print(result["message"])
+            else:
+                print(result["message"])
+                print(f"ターゲット: {result['target']}")
+
+    def display_message(self, message: str) -> None:
+        """
+        ゲーム中の任意のメッセージを表示する。
+        """
+        print(message)
