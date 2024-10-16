@@ -1,3 +1,6 @@
+import random
+
+
 class DisplayManager:
     def __init__(self) -> None:
         pass
@@ -10,7 +13,11 @@ class DisplayManager:
         symbols = [
             "🟥" if c.is_live else "🟩" for c in game.shotgun.cartridges.get_all()
         ]
-        print(f"[{''.join(symbols)}]")
+
+        # リストの順番を壊さないように、ランダムな順番でコピーを生成
+        randomized_symbols = random.sample(symbols, len(symbols))
+        print(f"[{''.join(randomized_symbols)}]")
+        print(f"実包: {game.shotgun.cartridges.num_live}発 空砲: {game.shotgun.cartridges.num_blank}発")
 
     def health(self, game) -> None:
         """

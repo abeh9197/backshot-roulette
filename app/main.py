@@ -30,7 +30,7 @@ from utils import DisplayManager
 
 
 def main() -> None:
-    logger.info("Game Start")
+    print("Game Start")
     display = DisplayManager()
     input_manager = InputManager()
 
@@ -57,9 +57,6 @@ def main() -> None:
             action = None
 
         game.play_turn(player_action=action)
-        logger.debug("player %s", game.player.health)
-        logger.debug("dealer %s", game.dealer.health)
-        logger.debug(f"shotgun {game.shotgun.cartridges}")
 
         game.check_and_reload()
 

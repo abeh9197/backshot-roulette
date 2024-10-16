@@ -52,6 +52,7 @@ class Game:
 
     def __apply_action(self, action: PlayerAction) -> None:
         if action.is_opponent:
+            print()
             self.__apply_shot(target=self.__dealer)
         else:
             self.__apply_shot(target=self.__player)

@@ -47,11 +47,21 @@ class Cartridges:
         return "".join("🟥" if c.is_live else "🟩" for c in self.__cartridges)
 
     def __load_cartridges(self, capacity: int) -> list[Cartridge]:
-        cartridges = [
-            Cartridge(random.choice(list(CartridgeType))) for _ in range(capacity)
+        # 空砲と実包をそれぞれ1発ずつ含む
+        cartridges = [Cartridge(CartridgeType.BLANK), Cartridge(CartridgeType.LIVE)]
+
+        # 残りのカートリッジをランダムに生成
+        remaining_capacity = capacity - 2
+        cartridges += [
+            Cartridge(random.choice(list(CartridgeType))) for _ in range(remaining_capacity)
         ]
+
+        # カートリッジの順番をシャッフル
+        random.shuffle(cartridges)
+
+        # ログ出力
         cartridge_types = ["実包" if c.is_live else "空砲" for c in cartridges]
-        logger.info(f"{capacity} cartridges loaded: {', '.join(cartridge_types)}")
+
         return cartridges
 
     @property
@@ -61,6 +71,14 @@ class Cartridges:
     @property
     def capacity(self) -> int:
         return self.__capacity
+
+    @property
+    def num_live(self) -> int:
+        return sum(1 for cartridge in self.__cartridges if cartridge.is_live)
+
+    @property
+    def num_blank(self) -> int:
+        return sum(1 for cartridge in self.__cartridges if cartridge.is_blank)
 
     def get_all(self) -> list[Cartridge]:
         return self.__cartridges
