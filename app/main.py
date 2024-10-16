@@ -62,7 +62,6 @@ def main() -> None:
         logger.debug(f"shotgun {game.shotgun.cartridges}")
 
         game.check_and_reload()
-        game.switch_turn()
 
     print("Game Over")
 

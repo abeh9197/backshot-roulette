@@ -75,6 +75,7 @@ class Game:
             # 実包の場合は対象にダメージを与える
             target.take_damage()
             print(f"{target.__class__.__name__} にダメージが与えられました！")
+            self.switch_turn()
 
     def __generate_dealer_action(self) -> DealerAction:
         self.__apply_dealers_action(self.__dealer.decide_action())
