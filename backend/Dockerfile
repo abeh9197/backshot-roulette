@@ -16,8 +16,5 @@ COPY . /app/
 # アプリケーションの起動コマンドを設定 (FastAPI の場合)
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
-# Flask の場合はこちらを使用
-# CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
-
 # ポート8000を公開
 EXPOSE 8000
