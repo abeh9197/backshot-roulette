@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function GamePage() {
   const [gameState, setGameState] = useState<any>(null);
@@ -36,17 +37,29 @@ export default function GamePage() {
           </div>
           <div className="mb-4">
             <h3 className="font-semibold">Player Health:</h3>
-            <div className="flex">
-              {Array(gameState.player_health).fill('⚡').map((_, idx) => (
-                <span key={idx} className="text-green-500 text-2xl">⚡</span>
+            <div className="flex space-x-2">
+              {Array(gameState.player_health).fill(null).map((_, idx) => (
+                <Image
+                  key={idx}
+                  src="/denryoku_mark.png"
+                  alt="Player Health"
+                  width={30}
+                  height={30}
+                />
               ))}
             </div>
           </div>
           <div className="mb-4">
             <h3 className="font-semibold">Dealer Health:</h3>
-            <div className="flex">
-              {Array(gameState.dealer_health).fill('⚡').map((_, idx) => (
-                <span key={idx} className="text-red-500 text-2xl">⚡</span>
+            <div className="flex space-x-2">
+              {Array(gameState.dealer_health).fill(null).map((_, idx) => (
+                <Image
+                  key={idx}
+                  src="/denryoku_mark.png"
+                  alt="Dealer Health"
+                  width={30}
+                  height={30}
+                />
               ))}
             </div>
           </div>
