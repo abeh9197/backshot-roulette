@@ -163,3 +163,57 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Node Modules
+node_modules/
+
+# Build output
+.next/
+out/
+
+# Tailwind CSS Cache
+.tailwindcss-cache/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# dotenv environment variables file
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# PostgreSQL Data Directory
+postgres_data/
+
+# Docker-related files
+docker-compose.override.yml
+.docker/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# MacOS and Windows files
+.DS_Store
+Thumbs.db
+
+# Other cache files
+.cache/
+
+# Fonts
+*.woff
+*.woff2
+
+frontend/node_modules/
