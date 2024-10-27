@@ -10,15 +10,15 @@ export default function GamePage() {
   useEffect(() => {
     const fetchGameState = async () => {
       try {
-        const response = await fetch('/api/start-game', { method: 'POST' });
+        const response = await fetch('/api/game/status');
         if (!response.ok) {
-          throw new Error('Failed to start game');
+          throw new Error('Failed to fetch game state');
         }
         const data = await response.json();
         setGameState(data);
       } catch (error) {
-        console.error('Error starting game:', error);
-        setError('ゲームの開始に失敗しました。');
+        console.error('Error fetching game state:', error);
+        setError('ゲームの状態を取得できませんでした。');
       }
     };
 
