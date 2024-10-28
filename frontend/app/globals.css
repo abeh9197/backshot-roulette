@@ -3,12 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #111827;
+  --background: #0d0d0d; /* より暗い背景色 */
+  --foreground: #e0e0e0; /* 白に近い文字色 */
+  --primary: #2563eb;
+  --secondary: #f97316;
+  --error: #ef4444;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: "Inter", sans-serif;
+  overflow: hidden; /* 背景アニメーションを画面内に収める */
+}
+
+/* 煙のアニメーションを表現するカスタムアニメーション */
+@keyframes smoke {
+  0% {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateX(-45%) translateY(-55%) scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+    opacity: 0.1;
+  }
+}
+
+/* 背景に煙を表現するためのカスタム要素 */
+.smoke-background::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 20%, transparent 80%);
+  opacity: 0.1;
+  animation: smoke 10s infinite ease-in-out;
+  filter: blur(80px);
 }
