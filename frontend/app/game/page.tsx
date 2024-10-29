@@ -6,6 +6,7 @@ import Image from 'next/image';
 export default function GamePage() {
   const [gameState, setGameState] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showActionButtons, setShowActionButtons] = useState(false); // アクションボタンの表示制御
 
   useEffect(() => {
     const fetchGameState = async () => {
@@ -25,6 +26,10 @@ export default function GamePage() {
     fetchGameState();
   }, []);
 
+  const handleShotgunClick = () => {
+    setShowActionButtons(!showActionButtons); // ショットガンをクリックするとボタン表示/非表示を切り替える
+  };
+
   const handlePlayerAction = async (action: string) => {
     try {
       const response = await fetch('/api/game/play-turn', {
@@ -37,6 +42,7 @@ export default function GamePage() {
       }
       const data = await response.json();
       setGameState(data);
+      setShowActionButtons(false); // アクション後にボタンを非表示
     } catch (error) {
       console.error('Error playing turn:', error);
       setError('ターンの実行に失敗しました。');
@@ -93,19 +99,33 @@ export default function GamePage() {
               ))}
             </div>
           </div>
-          <div className="flex space-x-4">
-            <button
-              onClick={() => handlePlayerAction('self')}
-              className="bg-primary text-foreground py-2 px-4 rounded hover:bg-secondary"
-            >
-              自分に撃つ
-            </button>
-            <button
-              onClick={() => handlePlayerAction('opponent')}
-              className="bg-red-500 text-foreground py-2 px-4 rounded hover:bg-red-700"
-            >
-              ディーラーに撃つ
-            </button>
+
+          {/* ショットガンの画像とホバーアクション */}
+          <div className="relative mt-6">
+            <Image
+              src="/hinawaju.png"
+              alt="Shotgun"
+              width={200}
+              height={100}
+              onClick={handleShotgunClick} // クリックでボタン表示を切り替える
+              className="cursor-pointer"
+            />
+            {showActionButtons && (
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-2 bg-gray-800 p-4 rounded-lg shadow-lg">
+                <button
+                  onClick={() => handlePlayerAction('self')}
+                  className="bg-primary text-foreground py-2 px-4 rounded hover:bg-secondary w-full"
+                >
+                  自分に撃つ
+                </button>
+                <button
+                  onClick={() => handlePlayerAction('opponent')}
+                  className="bg-red-500 text-foreground py-2 px-4 rounded hover:bg-red-700 w-full"
+                >
+                  ディーラーに撃つ
+                </button>
+              </div>
+            )}
           </div>
         </div>
       ) : (

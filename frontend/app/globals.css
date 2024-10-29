@@ -17,6 +17,21 @@ body {
   overflow: hidden; /* 背景アニメーションを画面内に収める */
 }
 
+.pulse-light {
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
 /* 煙のアニメーションを表現するカスタムアニメーション */
 @keyframes smoke {
   0% {
